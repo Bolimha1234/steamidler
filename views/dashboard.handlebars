@@ -1,0 +1,20 @@
+<div>
+    <h1>Login</h1>
+    <form id="form" action="/loggin" method="POST">
+        <input type="text" name="username" autocomplete="off" placeholder="Username" required>
+        <br /><br />
+        <input type="password" name="password" autocomplete="off" placeholder="Senha" required>
+        <br /><br />
+        <input type="text" name="steamGuard" autocomplete="off" placeholder="Steam Guard" required>
+        <br /><br />
+        {{!-- <input type="text" name="gameID" autocomplete="off" placeholder="Game ID" required> --}}
+        <h1>Jogo:</h1>
+        <select name="gameID" id="game" name="gameID">
+            <option value="730">CS:GO</option>
+            <option value="1085660">Destiny 2</option>
+            <option value="292030">The Witcher 3: Wild Hunt</option>
+        </select>
+        <br /><br />
+        <button type="submit">Enviar</button>
+    </form>
+</div>

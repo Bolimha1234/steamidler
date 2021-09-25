@@ -1,30 +1,33 @@
-const http = require("http");
-var SteamUser = require('steam-user')
-var client = new SteamUser();
-const express = require("express");
+const SteamUser = require('steam-user');
+const client = new SteamUser();
+const express = require('express');
+const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
+var port = 1111 || process.env.PORT
+
 const app = express();
 
-var UserInfo = {
-  accountName: process.env.user,
-  password: process.env.password
-}
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 
-app.get("/", function(request, response) {
-  response.sendFile(__dirname + "/views/index.html");
-  console.log("Up")
+app.get('/', function (req, res) {
+  res.render('dashboard');
 });
 
-app.listen(process.env.PORT);
-setInterval(() => {
-  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
+app.post('/loggin', async function (req, res) {
+  res.render('login_success');
+  client.logOn({ accountName: req.body.username, password: req.body.password, twoFactorCode: req.body.steamGuard });
+  client.on('loggedOn', () => {
+    client.setPersona(SteamUser.EPersonaState.Online);
+    client.gamesPlayed({ game_id: req.body.gameID});
+    console.log('[+] Successfully logged in! Selected game is already running. To stop close the terminal.');
+  });
+});
 
-
-
-client.logOn(UserInfo);
-client.on('loggedOn', () => {
-  client.setPersona(SteamUser.EPersonaState.Online);
-  client.gamesPlayed([730]);
-  console.log("Logged On.");
+app.listen(port, () => {
+  console.log(`[!] SteamIdler started!\nPlease enter here to login: http://localhost:${port}`);
 });
