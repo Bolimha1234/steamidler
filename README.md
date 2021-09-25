@@ -1,9 +1,19 @@
 # steamidler
-This is a steam idler that can be host in glitch.com
+Simple steam idle developed in Nodejs
 
+**_This project is not in its final release. Many errors can happen when running._**
 
+---
+Install the required dependency presented in the **package.json** file
+```
+npm install
+```
+---
+After the changes give the command on the console to start.
+```
+node index.js
+```
+---
+Ready now the project is running!
 
-1º Host all files on glitch.
-2º Put the credentials of the account in the file .env
-3º Put a caracter and delete in the file watch.json to restart the instance.
-4º Check in steam if the account it's running the games ids that you put in index.js.
+![steam-idle](https://i.imgur.com/0p0DeeD.png)
